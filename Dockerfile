@@ -1,13 +1,17 @@
-FROM nikolaik/python-nodejs:python3.9-nodejs18
+# Python 3.10 image use kar rahe hain
+FROM python:3.10
 
-RUN apt-get update -y && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends ffmpeg \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Work directory set karo
+WORKDIR /app
 
-COPY . /app/
-WORKDIR /app/
+# Dependencies copy karo
+COPY requirements.txt .
 
-RUN pip3 install --no-cache-dir --upgrade --requirement requirements.txt
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD bash fallen
+# Application code copy karo
+COPY . .
+
+# Application ko run karne ke liye command
+CMD ["python", "main.py"]  # Replace 'main.py' with your entry file
