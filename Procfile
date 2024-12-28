@@ -1,1 +1,1 @@
-worker: bash fallen
+web: gunicorn app:app
